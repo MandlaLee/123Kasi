@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="123Kasi is a scrollable kasi media feed for albums, photos, and videos." />
+  <title>123Kasi — Albums, Photos & Videos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900;1000&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="123Kasi home">
+        <span class="brand-mark">123Kasi</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" class="active">Explore</a>
+        <a href="#latest">New</a>
+        <a href="#albums">Albums</a>
+        <a href="#videos">Videos</a>
+        <a href="#photos">Photos</a>
+      </nav>
+
+      <div class="header-actions">
+        <label class="search-box" aria-label="Search albums">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search albums..." autocomplete="off" />
+        </label>
+        <button class="pill-button" id="uploadHelpButton" type="button">Upload</button>
+        <button class="avatar-button" type="button" aria-label="Profile">●</button>
+      </div>
+    </header>
+
+    <section class="hero-strip" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Photo & Video Sharing</p>
+        <h1 id="hero-title">Scroll the latest kasi albums.</h1>
+        <p>Drop folders into GitHub and 123Kasi builds the feed automatically — newest uploads first.</p>
+      </div>
+      <a class="hero-cta" href="#latest">Explore Latest</a>
+    </section>
+
+    <main class="explore-layout">
+      <aside class="sidebar" aria-label="Explore filters">
+        <div class="sidebar-card profile-card">
+          <div class="mini-logo">123</div>
+          <div>
+            <strong>123Kasi</strong>
+            <span>Media discovery</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <p class="sidebar-title">Browse</p>
+          <button class="side-link active" data-side-filter="all" type="button">Home</button>
+          <button class="side-link" data-side-filter="albums" type="button">Albums</button>
+          <button class="side-link" data-side-filter="videos" type="button">Videos</button>
+          <button class="side-link" data-side-filter="photos" type="button">Photos</button>
+          <button class="side-link" data-side-filter="mixed" type="button">Mixed Albums</button>
+        </div>
+
+        <div class="sidebar-card stats-card">
+          <p class="sidebar-title">Library</p>
+          <div class="stat-line"><span>Albums</span><strong id="albumCount">0</strong></div>
+          <div class="stat-line"><span>Photos</span><strong id="photoCount">0</strong></div>
+          <div class="stat-line"><span>Videos</span><strong id="videoCount">0</strong></div>
+        </div>
+      </aside>
+
+      <section class="feed-area" id="latest">
+        <div class="feed-toolbar">
+          <div>
+            <p class="eyebrow">Explore</p>
+            <h2>Latest Uploads</h2>
+          </div>
+          <div class="filter-pills" role="tablist" aria-label="Feed filters">
+            <button class="filter-pill active" data-filter="all" type="button">All</button>
+            <button class="filter-pill" data-filter="photos" type="button">Photos</button>
+            <button class="filter-pill" data-filter="videos" type="button">Videos</button>
+            <button class="filter-pill" data-filter="albums" type="button">Albums</button>
+          </div>
+        </div>
+
+        <section class="featured-panel" id="featuredPanel" aria-label="Featured latest album"></section>
+
+        <div class="section-heading" id="albums">
+          <h3>Albums</h3>
+          <span id="resultCount">Loading...</span>
+        </div>
+
+        <div class="album-grid" id="albumGrid" aria-live="polite"></div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-icon">+</div>
+          <h3>No media found yet.</h3>
+          <p>Add folders inside <code>feed/</code>, run the generator, and your albums will appear here automatically.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="upload-dialog" id="uploadDialog">
+    <button class="close-dialog" id="closeUploadDialog" aria-label="Close" type="button">×</button>
+    <h2>How uploading works</h2>
+    <p>For the GitHub Pages MVP, you upload media by creating a folder inside <code>feed/</code>. GitHub Actions scans the folder and updates <code>data/feed.json</code>.</p>
+    <pre><code>feed/
+  my-new-album/
+    image-01.jpg
+    image-02.png
+    clip-01.mp4</code></pre>
+    <p class="small-note">Only upload content you own or have permission to use. For public uploads later, 123Kasi will need a backend and moderation system.</p>
+  </dialog>
+
+  <script src="assets/js/feed.js"></script>
+</body>
+</html>

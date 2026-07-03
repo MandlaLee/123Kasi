@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="View a 123Kasi album with individual photos and videos." />
+  <title>123Kasi — Album</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900;1000&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header compact-header">
+      <a class="brand" href="index.html" aria-label="123Kasi home">
+        <span class="brand-mark">123Kasi</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Explore</a>
+        <a href="index.html#latest">New</a>
+        <a href="index.html#albums" class="active">Albums</a>
+      </nav>
+      <div class="header-actions">
+        <a class="pill-button link-button" href="index.html">Back to feed</a>
+      </div>
+    </header>
+
+    <main class="album-page">
+      <section class="album-hero" id="albumHero"></section>
+      <section class="media-grid" id="mediaGrid" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <dialog class="media-dialog" id="mediaDialog">
+    <button class="close-dialog" id="closeMediaDialog" aria-label="Close" type="button">×</button>
+    <div id="mediaViewer"></div>
+  </dialog>
+
+  <script src="assets/js/album.js"></script>
+</body>
+</html>

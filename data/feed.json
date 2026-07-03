@@ -1,0 +1,273 @@
+{
+  "site": "123Kasi",
+  "generatedAt": "2026-07-03T11:40:01.331Z",
+  "totals": {
+    "albums": 3,
+    "images": 12,
+    "videos": 0,
+    "items": 12
+  },
+  "albums": [
+    {
+      "slug": "block-party-energy",
+      "title": "Block Party Energy",
+      "description": "4 photos and 0 videos from this 123Kasi album.",
+      "folder": "feed/block-party-energy",
+      "imageCount": 4,
+      "videoCount": 0,
+      "totalCount": 4,
+      "cover": {
+        "name": "photo-04.svg",
+        "type": "image",
+        "url": "feed/block-party-energy/photo-04.svg",
+        "path": "feed/block-party-energy/photo-04.svg",
+        "size": 1489,
+        "modifiedAt": "2026-07-03T11:40:00.847Z"
+      },
+      "preview": [
+        {
+          "name": "photo-04.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-04.svg",
+          "path": "feed/block-party-energy/photo-04.svg",
+          "size": 1489,
+          "modifiedAt": "2026-07-03T11:40:00.847Z"
+        },
+        {
+          "name": "photo-01.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-01.svg",
+          "path": "feed/block-party-energy/photo-01.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-02.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-02.svg",
+          "path": "feed/block-party-energy/photo-02.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-03.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-03.svg",
+          "path": "feed/block-party-energy/photo-03.svg",
+          "size": 1497,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        }
+      ],
+      "createdAt": "2026-07-03T11:40:00.846Z",
+      "updatedAt": "2026-07-03T11:40:00.847Z",
+      "files": [
+        {
+          "name": "photo-04.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-04.svg",
+          "path": "feed/block-party-energy/photo-04.svg",
+          "size": 1489,
+          "modifiedAt": "2026-07-03T11:40:00.847Z"
+        },
+        {
+          "name": "photo-01.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-01.svg",
+          "path": "feed/block-party-energy/photo-01.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-02.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-02.svg",
+          "path": "feed/block-party-energy/photo-02.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-03.svg",
+          "type": "image",
+          "url": "feed/block-party-energy/photo-03.svg",
+          "path": "feed/block-party-energy/photo-03.svg",
+          "size": 1497,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        }
+      ]
+    },
+    {
+      "slug": "kasi-night-sessions",
+      "title": "Kasi Night Sessions",
+      "description": "4 photos and 0 videos from this 123Kasi album.",
+      "folder": "feed/kasi-night-sessions",
+      "imageCount": 4,
+      "videoCount": 0,
+      "totalCount": 4,
+      "cover": {
+        "name": "photo-03.svg",
+        "type": "image",
+        "url": "feed/kasi-night-sessions/photo-03.svg",
+        "path": "feed/kasi-night-sessions/photo-03.svg",
+        "size": 1495,
+        "modifiedAt": "2026-07-03T11:40:00.846Z"
+      },
+      "preview": [
+        {
+          "name": "photo-03.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-03.svg",
+          "path": "feed/kasi-night-sessions/photo-03.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-04.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-04.svg",
+          "path": "feed/kasi-night-sessions/photo-04.svg",
+          "size": 1497,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-01.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-01.svg",
+          "path": "feed/kasi-night-sessions/photo-01.svg",
+          "size": 1499,
+          "modifiedAt": "2026-07-03T11:40:00.843Z"
+        },
+        {
+          "name": "photo-02.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-02.svg",
+          "path": "feed/kasi-night-sessions/photo-02.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.843Z"
+        }
+      ],
+      "createdAt": "2026-07-03T11:40:00.843Z",
+      "updatedAt": "2026-07-03T11:40:00.846Z",
+      "files": [
+        {
+          "name": "photo-03.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-03.svg",
+          "path": "feed/kasi-night-sessions/photo-03.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-04.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-04.svg",
+          "path": "feed/kasi-night-sessions/photo-04.svg",
+          "size": 1497,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-01.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-01.svg",
+          "path": "feed/kasi-night-sessions/photo-01.svg",
+          "size": 1499,
+          "modifiedAt": "2026-07-03T11:40:00.843Z"
+        },
+        {
+          "name": "photo-02.svg",
+          "type": "image",
+          "url": "feed/kasi-night-sessions/photo-02.svg",
+          "path": "feed/kasi-night-sessions/photo-02.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.843Z"
+        }
+      ]
+    },
+    {
+      "slug": "weekend-streets",
+      "title": "Weekend Streets",
+      "description": "4 photos and 0 videos from this 123Kasi album.",
+      "folder": "feed/weekend-streets",
+      "imageCount": 4,
+      "videoCount": 0,
+      "totalCount": 4,
+      "cover": {
+        "name": "photo-01.svg",
+        "type": "image",
+        "url": "feed/weekend-streets/photo-01.svg",
+        "path": "feed/weekend-streets/photo-01.svg",
+        "size": 1503,
+        "modifiedAt": "2026-07-03T11:40:00.846Z"
+      },
+      "preview": [
+        {
+          "name": "photo-01.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-01.svg",
+          "path": "feed/weekend-streets/photo-01.svg",
+          "size": 1503,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-02.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-02.svg",
+          "path": "feed/weekend-streets/photo-02.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-03.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-03.svg",
+          "path": "feed/weekend-streets/photo-03.svg",
+          "size": 1497,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-04.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-04.svg",
+          "path": "feed/weekend-streets/photo-04.svg",
+          "size": 1491,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        }
+      ],
+      "createdAt": "2026-07-03T11:40:00.846Z",
+      "updatedAt": "2026-07-03T11:40:00.846Z",
+      "files": [
+        {
+          "name": "photo-01.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-01.svg",
+          "path": "feed/weekend-streets/photo-01.svg",
+          "size": 1503,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-02.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-02.svg",
+          "path": "feed/weekend-streets/photo-02.svg",
+          "size": 1495,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-03.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-03.svg",
+          "path": "feed/weekend-streets/photo-03.svg",
+          "size": 1497,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        },
+        {
+          "name": "photo-04.svg",
+          "type": "image",
+          "url": "feed/weekend-streets/photo-04.svg",
+          "path": "feed/weekend-streets/photo-04.svg",
+          "size": 1491,
+          "modifiedAt": "2026-07-03T11:40:00.846Z"
+        }
+      ]
+    }
+  ]
+}
