@@ -1,11 +1,11 @@
 {
   "site": "123Kasi",
-  "generatedAt": "2026-07-03T14:02:27.541Z",
+  "generatedAt": "2026-07-03T14:03:06.968Z",
   "totals": {
-    "albums": 4,
-    "images": 99,
+    "albums": 3,
+    "images": 95,
     "videos": 18,
-    "items": 117
+    "items": 113
   },
   "albums": [
     {
@@ -1074,93 +1074,6 @@
           "path": "feed/yogirl_comfort_/yogirl_comfort__1757408629_3717735385422900120_45959317937.mp4",
           "size": 4059684,
           "modifiedAt": "2026-07-03T14:27:38+02:00"
-        }
-      ]
-    },
-    {
-      "slug": "kasi-night-sessions",
-      "title": "Kasi Night Sessions",
-      "description": "4 photos and 0 videos from this 123Kasi album.",
-      "folder": "feed/kasi-night-sessions",
-      "imageCount": 4,
-      "videoCount": 0,
-      "totalCount": 4,
-      "cover": {
-        "name": "photo-01.svg",
-        "type": "image",
-        "url": "feed/kasi-night-sessions/photo-01.svg",
-        "path": "feed/kasi-night-sessions/photo-01.svg",
-        "size": 1499,
-        "modifiedAt": "2026-07-03T14:11:29+02:00"
-      },
-      "preview": [
-        {
-          "name": "photo-01.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-01.svg",
-          "path": "feed/kasi-night-sessions/photo-01.svg",
-          "size": 1499,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        },
-        {
-          "name": "photo-02.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-02.svg",
-          "path": "feed/kasi-night-sessions/photo-02.svg",
-          "size": 1495,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        },
-        {
-          "name": "photo-03.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-03.svg",
-          "path": "feed/kasi-night-sessions/photo-03.svg",
-          "size": 1495,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        },
-        {
-          "name": "photo-04.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-04.svg",
-          "path": "feed/kasi-night-sessions/photo-04.svg",
-          "size": 1497,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        }
-      ],
-      "createdAt": "2026-07-03T12:11:29.000Z",
-      "updatedAt": "2026-07-03T12:11:29.000Z",
-      "files": [
-        {
-          "name": "photo-01.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-01.svg",
-          "path": "feed/kasi-night-sessions/photo-01.svg",
-          "size": 1499,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        },
-        {
-          "name": "photo-02.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-02.svg",
-          "path": "feed/kasi-night-sessions/photo-02.svg",
-          "size": 1495,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        },
-        {
-          "name": "photo-03.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-03.svg",
-          "path": "feed/kasi-night-sessions/photo-03.svg",
-          "size": 1495,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
-        },
-        {
-          "name": "photo-04.svg",
-          "type": "image",
-          "url": "feed/kasi-night-sessions/photo-04.svg",
-          "path": "feed/kasi-night-sessions/photo-04.svg",
-          "size": 1497,
-          "modifiedAt": "2026-07-03T14:11:29+02:00"
         }
       ]
     }
