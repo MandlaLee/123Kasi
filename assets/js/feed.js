@@ -40,6 +40,9 @@ function matchesFilter(album) {
   const kind = albumKind(album);
   if (state.activeFilter === 'all') return true;
   if (state.activeFilter === 'albums') return true;
+  if (state.activeFilter === 'mixed') return kind === 'mixed';
+  if (state.activeFilter === 'photos') return (album.imageCount || 0) > 0;
+  if (state.activeFilter === 'videos') return (album.videoCount || 0) > 0;
   return kind === state.activeFilter;
 }
 
@@ -143,12 +146,16 @@ function renderCounts(albums) {
 
 function render() {
   const albums = getFilteredAlbums();
-  renderFeatured(albums[0] || state.albums[0]);
+  renderFeatured(albums[0]);
   renderCounts(state.albums);
 
   resultCount.textContent = albums.length === 1 ? '1 album' : `${albums.length} albums`;
   albumGrid.innerHTML = albums.map(renderAlbumCard).join('');
   emptyState.hidden = albums.length > 0;
+  const heading = emptyState.querySelector('h3');
+  const explanation = emptyState.querySelector('p');
+  if (heading) heading.textContent = state.albums.length ? 'No matching albums' : 'No media found yet';
+  if (explanation) explanation.textContent = state.albums.length ? 'Try a different search or choose All to see everything.' : 'Albums will appear here when media is added.';
 }
 
 function setFilter(filter) {
@@ -158,6 +165,8 @@ function setFilter(filter) {
     button.classList.toggle('active', value === filter || (filter === 'all' && value === 'all'));
   });
   render();
+  const heading = document.querySelector('.feed-toolbar h2');
+  if (heading) heading.textContent = filter === 'all' ? 'Latest Uploads' : filter === 'mixed' ? 'Mixed Albums' : filter.charAt(0).toUpperCase() + filter.slice(1);
 }
 
 async function loadFeed() {
@@ -197,4 +206,17 @@ if (closeUploadDialog && uploadDialog) {
   closeUploadDialog.addEventListener('click', () => uploadDialog.close());
 }
 
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', event => {
+    const target = link.getAttribute('href').slice(1);
+    const filter = { latest: 'all', albums: 'albums', photos: 'photos', videos: 'videos' }[target];
+    if (!filter) return;
+    event.preventDefault();
+    setFilter(filter);
+    document.querySelector('#latest')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + target);
+  });
+});
+const initialFilter = { photos: 'photos', videos: 'videos', albums: 'albums' }[location.hash.slice(1)];
+if (initialFilter) setFilter(initialFilter);
 loadFeed();
