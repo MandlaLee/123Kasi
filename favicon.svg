@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="123Kasi">
+  <rect width="64" height="64" rx="10" fill="#151515"/>
+  <path d="M0 49h64v15H0z" fill="#e84534"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="33" font-weight="900" letter-spacing="-2" fill="#fff">123</text>
+</svg>
