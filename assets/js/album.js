@@ -61,6 +61,12 @@ function renderAlbum(album) {
       mediaDialog.showModal();
     });
   });
+  const selected = Number(new URLSearchParams(location.search).get('media'));
+  if (new URLSearchParams(location.search).has('media') && Number.isInteger(selected) && selected >= 0 && selected < album.files.length) {
+    const file = album.files[selected];
+    mediaViewer.innerHTML = mediaElement(file, { controls: true, autoplay: false });
+    mediaDialog.showModal();
+  }
 }
 
 function renderMissing() {
