@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const root = process.cwd();
 const feedDir = path.join(root, 'feed');
@@ -43,8 +43,10 @@ function getMediaType(filename) {
 
 function getGitDate(relativePath) {
   try {
-    const command = `git log -1 --format=%cI -- "${relativePath.replace(/"/g, '\\"')}"`;
-    const result = execSync(command, { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+    // Use an argument array; media filenames must never be interpreted as shell commands.
+    const result = execFileSync('git', ['log', '-1', '--format=%cI', '--', relativePath], {
+      cwd: root, stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8'
+    }).trim();
     return result || null;
   } catch (_) {
     return null;
@@ -103,7 +105,7 @@ function scanAlbum(folderName) {
   return {
     slug: folderName,
     title: titleFromSlug(folderName),
-    description: `${imageCount} photos and ${videoCount} videos from this 123Kasi album.`,
+    description: `${imageCount} photos and ${videoCount} videos by ${titleFromSlug(folderName)}.`,
     folder: `feed/${folderName}`,
     imageCount,
     videoCount,
