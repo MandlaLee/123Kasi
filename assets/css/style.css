@@ -36,3 +36,8 @@
 .thumb-broken::after{content:"Preview unavailable";font-size:12px;text-align:center}
 .thumb-broken img,.thumb-broken video{display:none}
 @media(max-width:480px){.viewer-toolbar{gap:7px}.viewer-toolbar button{padding:8px;font-size:12px}#viewerCaption{font-size:11px}}
+
+/* Reels category link shares the compact navigation treatment. */
+.category-nav .reels-nav-link{background:transparent;border:0;font-size:12px;font-weight:bold;white-space:nowrap;padding:12px 14px}
+.category-nav .reels-nav-link:hover{color:#e64530;border-bottom:3px solid #e64530}
+@media(max-width:600px){.category-nav .reels-nav-link{padding:11px 9px}}
