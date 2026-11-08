@@ -46,9 +46,18 @@
     .account button{width:100%}
     @media(max-width:460px){.panel{padding:21px;box-shadow:none}main{display:block;padding:15px 9px}header{padding:10px 13px}}
     @media(prefers-reduced-motion:no-preference){.panel{animation:enter .18s ease-out} @keyframes enter{from{opacity:.9;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}}
+  /* Embedded mode is unlocked only after the verified parent handshake. */
+    body[data-embed="true"]{background:#fff;min-height:0}
+    body[data-embed="true"] header{display:none}
+    body[data-embed="true"] main{min-height:0;display:block;padding:3px 0 16px}
+    body[data-embed="true"] .panel{width:100%;max-width:none;border:0;box-shadow:none;border-radius:0;padding:21px 21px 12px}
+    body[data-embed="true"]:not(.trusted-embed) main{visibility:hidden}
+    body[data-embed="true"] .subtitle{margin-bottom:17px}
+    body[data-embed="true"] .tabs{margin-bottom:19px}
+    @media(max-width:460px){body[data-embed="true"] .panel{padding:19px 14px 12px}}
   </style>
 </head>
-<body>
+<body data-embed="<?= isEmbedded ? 'true' : 'false' ?>" data-nonce="<?= embedNonce ?>">
 <header>
   <a class="brand" href="https://mandlalee.github.io/123Kasi/" aria-label="123Kasi home"><span>123</span>KASI</a>
   <a class="back" href="https://mandlalee.github.io/123Kasi/">← Back to site</a>
@@ -104,6 +113,37 @@
     </form>
   </div>
 </section></main>
+<script>
+/* The embedded auth form is deliberately hidden until the allowed 123Kasi
+   origin confirms the challenge. This counters malicious third-party framing
+   when XFrameOptionsMode.ALLOWALL is enabled for ?embed=1. */
+(() => {
+  'use strict';
+  if (document.body.dataset.embed !== 'true') return;
+  const nonce = document.body.dataset.nonce || '';
+  const allowedParent = 'https://mandlalee.github.io';
+  if (!/^[a-f0-9]{32}$/.test(nonce)) return;
+  let verified = false;
+  const announce = () => {
+    if (verified) return;
+    try {
+      window.top.postMessage({source:'123kasi-auth',kind:'ready',nonce},allowedParent);
+    } catch (_) {}
+  };
+  const interval = setInterval(announce, 600);
+  window.addEventListener('message', event => {
+    if (verified || event.origin !== allowedParent || event.source !== window.top) return;
+    const data = event.data;
+    if (!data || data.source !== '123kasi-auth-host' || data.kind !== 'ack' || data.nonce !== nonce) return;
+    verified = true;
+    clearInterval(interval);
+    document.body.classList.add('trusted-embed');
+    window.top.postMessage({source:'123kasi-auth',kind:'accepted',nonce},allowedParent);
+  });
+  announce();
+  setTimeout(()=>clearInterval(interval),30000);
+})();
+</script>
 <script>
 (() => {
   'use strict';
