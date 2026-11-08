@@ -45,10 +45,21 @@ function initialize123Kasi_() {
   Logger.log('Private account database: ' + book.getUrl());
 }
 
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile('Login')
+function doGet(e) {
+  const embedded = !!(e && e.parameter && e.parameter.embed === '1');
+  const template = HtmlService.createTemplateFromFile('Login');
+  template.isEmbedded = embedded;
+  template.embedNonce = embedded && /^[a-f0-9]{32}$/.test(String(e.parameter.nonce || ''))
+    ? String(e.parameter.nonce)
+    : '';
+  const html = template.evaluate()
     .setTitle('123Kasi — Sign in')
-    .addMetaTag('viewport','width=device-width,initial-scale=1');
+    .addMetaTag('viewport', 'width=device-width,initial-scale=1');
+  // Google normally prevents third-party frames. Allow them ONLY for the modal
+  // route; Login.html requires a handshake with https://mandlalee.github.io
+  // before displaying any fields, reducing clickjacking exposure.
+  if (embedded) html.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  return html;
 }
 
 // Helpers are deliberately private (suffix _).
