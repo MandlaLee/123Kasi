@@ -268,6 +268,7 @@ reelsPlayer.addEventListener('touchend', event => {
 }, { passive: true });
 
 document.addEventListener('keydown', event => {
+  if (document.querySelector('.account-modal[open]')) return;
   if (event.altKey || event.ctrlKey || event.metaKey) return;
   const tag = document.activeElement?.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
