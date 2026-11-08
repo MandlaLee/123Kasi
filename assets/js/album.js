@@ -22,7 +22,8 @@ function mediaElement(file, options = {}) {
   if (file.type === 'video') {
     const controls = options.controls ? 'controls' : '';
     const autoplay = options.autoplay ? 'autoplay' : '';
-    return `<video src="${file.url}" ${controls} ${autoplay} muted playsinline preload="metadata" aria-label="${label}"></video>`;
+    const muted = options.controls ? '' : 'muted';
+    return `<video src="${file.url}" ${controls} ${autoplay} ${muted} playsinline preload="metadata" aria-label="${label}"></video>`;
   }
   return `<img src="${file.url}" alt="${label}" loading="lazy">`;
 }
@@ -104,6 +105,9 @@ if (closeMediaDialog) {
 }
 
 if (mediaDialog) {
+  mediaDialog.addEventListener('click', event => {
+    if (event.target === mediaDialog) mediaDialog.close();
+  });
   mediaDialog.addEventListener('close', () => {
     mediaViewer.innerHTML = '';
   });
