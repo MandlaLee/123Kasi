@@ -70,3 +70,18 @@ button:focus-visible,a:focus-visible,.reels-player:focus-visible{outline:2px sol
   .reels-stage > img,.reels-stage > video,.reels-message:not([hidden]) { animation:none!important; transform:none!important; opacity:1!important; }
   .reels-controls button,.reels-header .back,.reels-help>a,.model-link { transition:none!important; }
 }
+
+/* Account link within the Reels header */
+.reels-account-actions { display:flex; align-items:center; gap:17px; margin-left:auto; }
+.reels-signin {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:33px; padding:0 12px;
+  border:1px solid #d9d9d9; border-radius:4px;
+  font-size:12px; font-weight:700; white-space:nowrap;
+  color:#222; background:#fff;
+  transition:border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+.reels-signin:hover { border-color:#e84534; color:#d43f2c; background:#fff7f6; }
+.reels-signin:focus-visible { outline:2px solid #e84534; outline-offset:2px; }
+@media(max-width:680px) { .reels-account-actions .header-label { display:none; } }
+@media(prefers-reduced-motion:reduce) { .reels-signin { transition:none!important; } }
