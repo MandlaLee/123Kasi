@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="123Kasi Reels — discover shuffled photos and videos, one at a time.">
+  <title>123Kasi — Reels</title>
+  <link rel="stylesheet" href="assets/css/reels.css">
+</head>
+<body>
+  <header class="reels-header">
+    <a class="back" href="index.html" aria-label="Back to 123Kasi home">← <span>Back</span></a>
+    <a class="reels-logo" href="index.html" aria-label="123Kasi home"><span>123</span>KASI</a>
+    <span class="header-label">REELS</span>
+  </header>
+  <main class="reels-layout">
+    <section class="reels-player" id="reelsPlayer" aria-label="Vertical reels viewer" tabindex="0">
+      <div class="reels-stage" id="reelsStage"></div>
+      <div class="top-gradient" aria-hidden="true"></div>
+      <div class="reels-counter" id="reelsCounter">Loading reels…</div>
+      <div class="reels-bottom">
+        <div class="reels-caption">
+          <span class="media-kind" id="mediaKind"></span>
+          <a id="modelLink" class="model-link" href="index.html#models">Model</a>
+          <p id="reelsDescription"></p>
+        </div>
+        <div class="progress" id="progressTrack" role="progressbar" aria-label="Media progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressFill"></span></div>
+      </div>
+      <div class="reels-controls" aria-label="Reels controls">
+        <button id="previousReel" aria-label="Previous reel" type="button" title="Previous reel">↑</button>
+        <button id="nextReel" aria-label="Next reel" type="button" title="Next reel">↓</button>
+        <button id="pauseReel" aria-label="Pause automatic playback" type="button" title="Pause">Ⅱ</button>
+        <button id="muteReel" aria-label="Unmute video" type="button" title="Unmute">♪</button>
+        <button id="fullscreenReel" aria-label="Toggle fullscreen" type="button" title="Fullscreen">⛶</button>
+      </div>
+      <div class="reels-message" id="reelsMessage" role="status" hidden></div>
+    </section>
+    <aside class="reels-help" aria-label="Reels information">
+      <strong>Keep exploring</strong>
+      <p>Every photo and video appears once before the collection reshuffles and starts again.</p>
+      <p>Swipe or scroll to skip. Photos advance automatically; videos continue when they finish.</p>
+      <div class="reels-shortcuts">
+        <span>↑ ↓</span> Previous / Next
+        <span>Space</span> Pause / Resume
+        <span>M</span> Mute / Unmute
+      </div>
+      <a href="index.html#models">Browse models →</a>
+    </aside>
+  </main>
+  <script src="assets/js/reels.js"></script>
+</body>
+</html>
