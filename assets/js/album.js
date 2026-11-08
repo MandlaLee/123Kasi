@@ -68,7 +68,7 @@ function renderAlbum(album) {
           <span class="meta-chip">${formatDate(album.updatedAt)}</span>
         </div>
         <h1>${text(album.title)}</h1>
-        <p>${text(album.description || 'Every photo and video on this page comes from the matching folder inside the feed directory.')}</p>
+        <p>${text((album.imageCount || 0) + ' photos · ' + (album.videoCount || 0) + ' videos')}</p>
         <a class="open-album" href="index.html">← Back to feed</a>
       </div>
     </div>
