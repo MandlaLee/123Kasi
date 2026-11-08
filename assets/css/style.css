@@ -117,3 +117,23 @@ dialog[open]::backdrop { animation:backdrop-in 180ms ease both; }
   *,*::before,*::after { animation-duration:0.01ms!important; animation-delay:0ms!important; transition-duration:0.01ms!important; transition-delay:0ms!important; scroll-behavior:auto!important; }
   .motion-ready .media-card,.motion-ready .media-tile { opacity:1!important; transform:none!important; }
 }
+
+/* Account entry point: compact, consistent with the reference header. */
+.top-actions { display:flex; align-items:center; gap:8px; }
+.account-link {
+  display:inline-flex; align-items:center; justify-content:center;
+  height:34px; padding:0 12px; border:1px solid #dbdbdb; border-radius:4px;
+  color:#222; background:#fff; white-space:nowrap;
+  font-size:12px; font-weight:700; text-decoration:none;
+  transition:color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+}
+.account-link:hover { color:#d43f2c; border-color:#e84534; background:#fff7f6; }
+.account-link:active { background:#fce9e6; }
+.account-link:focus-visible { outline:2px solid #e84534; outline-offset:2px; }
+@media (max-width:380px) {
+  .top-actions #uploadHelpButton { display:none; }
+  .account-link { padding:0 9px; font-size:11px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .account-link { transition:none!important; }
+}
