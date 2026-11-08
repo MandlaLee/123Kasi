@@ -111,3 +111,77 @@ button:focus-visible,a:focus-visible,.reels-player:focus-visible{outline:2px sol
   .account-popup-fallback[open]{animation:account-popup-in 170ms ease-out both}
   @keyframes account-popup-in{from{opacity:.75;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 }
+
+/* Inline Google Apps Script account dialog — 123Kasi visual system. */
+.account-modal {
+  width:min(480px,calc(100vw - 24px));
+  height:min(760px,calc(100dvh - 28px));
+  max-width:none;
+  max-height:none;
+  padding:0;
+  border:1px solid #ddd;
+  border-radius:9px;
+  background:#fff;
+  color:#161616;
+  box-shadow:0 18px 50px #0005;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow:hidden;
+}
+.account-modal::backdrop { background:rgba(0,0,0,.67); }
+.account-modal-shell { height:100%; display:flex; flex-direction:column; }
+.account-modal-header {
+  position:relative;
+  flex:0 0 54px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 16px;
+  background:#fff; border-bottom:1px solid #e6e6e6;
+}
+.account-modal-brand {
+  font-weight:900; font-size:22px; letter-spacing:-1.2px; color:#181818;
+}
+.account-modal-brand span {color:#e84534}
+.account-modal-brand small {font-size:11px;font-weight:700;letter-spacing:0;color:#808080;margin-left:9px}
+.account-modal-close {
+  display:grid;place-items:center;
+  flex-shrink:0;width:34px;height:34px;
+  padding:0; border:0; border-radius:4px;
+  color:#444;background:transparent;
+  font-size:25px;line-height:1;cursor:pointer;
+}
+.account-modal-close:hover {background:#f3f3f3;color:#d43f2c}
+.account-modal-close:focus-visible, .account-modal-external:focus-visible {
+  outline:2px solid #e84534;outline-offset:2px;
+}
+.account-modal-body {
+  flex:1;position:relative;min-height:0;
+  background:#fff;
+}
+.account-modal-iframe {width:100%;height:100%;border:0;display:block;background:#fff}
+.account-modal-status {
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:22px;gap:12px;background:#fff;
+}
+.account-modal-status strong {font-size:15px;letter-spacing:-.1px;max-width:310px}
+.account-modal-status p {font-size:13px;line-height:1.55;color:#6b6b6b;max-width:330px;margin:0}
+.account-modal-spinner {
+  width:26px;height:26px;border:2px solid #eee;border-top-color:#e84534;border-radius:50%;
+  animation:account-modal-spin .8s linear infinite;
+}
+.account-modal-footer {
+  flex:0 0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:0 16px;
+  border-top:1px solid #ebebeb;background:#fafafa;
+  font-size:11px;color:#858585;
+}
+.account-modal-external{color:#bd3d2d;text-decoration:underline;text-underline-offset:2px;font-weight:700}
+@keyframes account-modal-spin{to{transform:rotate(360deg)}}
+@media (max-width:500px) {
+  .account-modal{width:calc(100vw - 16px);height:min(760px,calc(100dvh - 16px));border-radius:6px}
+  .account-modal-header{padding:0 12px}
+  .account-modal-footer{padding:0 12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .account-modal-spinner{animation:none;border-top-color:#e84534}
+}
