@@ -66,7 +66,7 @@ function tab_(name) {
 
 function normalizeEmail_(value) {
   const email = String(value || '').trim().toLowerCase();
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Enter a valid email address.');
+  if (email.length > 254 || !/^[a-z0-9][a-z0-9.!#$%&'*+/=?^_`{|}~-]*@[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/.test(email)) throw new Error('Enter a valid email address.');
   return email;
 }
 
@@ -139,7 +139,6 @@ function createCode_(email,purpose) {
   const code = String(parseInt(Utilities.getUuid().replace(/-/g,'').slice(0,8),16)%1000000).padStart(6,'0');
   const sheet = tab_('Verification');
   const identifier = email + ':' + purpose;
-  const match = findRow_(sheet,0,email);
   const rows = sheet.getDataRange().getValues();
   let row = null;
   for (let i=1;i<rows.length;i++) {
