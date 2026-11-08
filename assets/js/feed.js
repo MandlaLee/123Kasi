@@ -1,7 +1,8 @@
 const state = {
   albums: [],
   activeFilter: 'all',
-  search: ''
+  search: '',
+  sort: 'newest'
 };
 
 const albumGrid = document.querySelector('#albumGrid');
@@ -53,7 +54,12 @@ function matchesSearch(album) {
 }
 
 function getFilteredAlbums() {
-  return state.albums.filter(album => matchesFilter(album) && matchesSearch(album));
+  return state.albums.filter(album => matchesFilter(album) && matchesSearch(album)).sort((a,b) => {
+    if (state.sort === 'az') return a.title.localeCompare(b.title);
+    if (state.sort === 'most') return (b.totalCount || 0) - (a.totalCount || 0);
+    const delta = new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0);
+    return state.sort === 'oldest' ? -delta : delta;
+  });
 }
 
 function mediaElement(file, extraClass = '') {
@@ -67,7 +73,7 @@ function mediaElement(file, extraClass = '') {
 
 function renderPreview(album) {
   const previews = album.preview && album.preview.length ? album.preview : album.files.slice(0, 4);
-  const first = previews[0] || album.files[0];
+  const first = (album.files || []).find(file => file.type === "video") || previews[0] || album.files[0];
   const hasVideo = album.files.some(file => file.type === 'video');
 
   if (!first) {
@@ -96,7 +102,7 @@ function renderFeatured(album) {
     return;
   }
 
-  const cover = album.cover || album.files[0];
+  const cover = album.files.find(file => file.type === "video") || album.cover || album.files[0];
   featuredPanel.innerHTML = `
     <article class="featured-card">
       <a class="featured-media" href="album.html?album=${encodeURIComponent(album.slug)}" aria-label="Open ${text(album.title)}">
@@ -126,7 +132,7 @@ function renderAlbumCard(album) {
         <h3>${text(album.title)}</h3>
         <p>${album.totalCount} items · ${formatDate(album.updatedAt)}</p>
       </div>
-      <span class="card-menu">⋮</span>
+      <span class="card-menu">View →</span>
     </a>
   `;
 }
@@ -219,4 +225,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
 const initialFilter = { photos: 'photos', videos: 'videos', albums: 'albums' }[location.hash.slice(1)];
 if (initialFilter) setFilter(initialFilter);
+const sortSelect = document.querySelector('#sortSelect');
+if (sortSelect) sortSelect.addEventListener('change', () => { state.sort = sortSelect.value; render(); });
 loadFeed();
