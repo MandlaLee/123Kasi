@@ -28,10 +28,10 @@
       <div class="header-actions">
         <label class="search-box" aria-label="Search albums">
           <span>⌕</span>
-          <input id="searchInput" type="search" placeholder="Search albums..." autocomplete="off" />
+          <input id="searchInput" type="search" placeholder="Search albums..." aria-label="Search albums" autocomplete="off" />
         </label>
-        <button class="pill-button" id="uploadHelpButton" type="button">Upload</button>
-        <button class="avatar-button" type="button" aria-label="Profile">●</button>
+        <button class="pill-button" id="uploadHelpButton" type="button">How to upload</button>
+        <a class="avatar-button" href="#latest" aria-label="Browse latest albums">123</a>
       </div>
     </header>
 
@@ -39,7 +39,7 @@
       <div>
         <p class="eyebrow">Photo & Video Sharing</p>
         <h1 id="hero-title">Scroll the latest kasi albums.</h1>
-        <p>Drop folders into GitHub and 123Kasi builds the feed automatically — newest uploads first.</p>
+        <p>Discover photos, videos and albums from the kasi. Pick a category or search to find what you want.</p>
       </div>
       <a class="hero-cta" href="#latest">Explore Latest</a>
     </section>
@@ -77,7 +77,7 @@
             <p class="eyebrow">Explore</p>
             <h2>Latest Uploads</h2>
           </div>
-          <div class="filter-pills" role="tablist" aria-label="Feed filters">
+          <div class="filter-pills" role="group" aria-label="Feed filters">
             <button class="filter-pill active" data-filter="all" type="button">All</button>
             <button class="filter-pill" data-filter="photos" type="button">Photos</button>
             <button class="filter-pill" data-filter="videos" type="button">Videos</button>
