@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>123Kasi — Account</title>
+  <style>
+    :root{font-family:Arial,Helvetica,sans-serif;color:#171717;background:#f6f6f6;font-synthesis:none}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh}
+    a{color:inherit}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    button:disabled{cursor:wait;opacity:.65}
+    [hidden]{display:none!important}
+    header{background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:15px 23px;height:62px}
+    .brand{font-size:27px;font-weight:900;letter-spacing:-1.5px;text-decoration:none}
+    .brand span{color:#e84534}
+    .back{font-size:12px;font-weight:700;color:#666;text-decoration:none}
+    .back:hover{text-decoration:underline}
+    main{min-height:calc(100vh - 62px);display:grid;place-items:center;padding:25px 14px 48px}
+    .panel{width:min(430px,100%);padding:28px;background:#fff;border:1px solid #dedede;border-radius:6px;box-shadow:0 9px 35px #00000008}
+    h1{margin:0 0 6px;font-size:25px;letter-spacing:-.6px}
+    .subtitle{margin:0 0 24px;font-size:13px;line-height:1.5;color:#696969}
+    .tabs{display:flex;margin-bottom:25px;border-bottom:1px solid #ddd}
+    .tab{flex:1;background:none;border:0;border-bottom:3px solid transparent;padding:12px 8px;font-weight:700;color:#777;font-size:13px}
+    .tab.active{border-bottom-color:#e84534;color:#161616}
+    form{display:grid;gap:14px}
+    label{font-weight:700;font-size:12px;display:grid;gap:6px}
+    input{height:43px;width:100%;border:1px solid #bbb;border-radius:4px;padding:10px 11px;font-size:14px;outline:none;background:#fff;color:#111}
+    input:focus{border-color:#e84534;box-shadow:0 0 0 2px #e8453421}
+    .primary{background:#e84534;color:#fff;border:0;border-radius:4px;min-height:45px;font-size:14px;font-weight:800;margin-top:3px}
+    .primary:hover:not(:disabled){background:#ce3827}
+    .secondary{border:1px solid #ccc;background:#fff;border-radius:4px;min-height:39px;font-size:12px;font-weight:700}
+    .text-button{padding:5px 0;background:none;border:0;color:#c13d2c;font-size:12px;font-weight:700;text-align:left}
+    .small{font-size:11px;color:#777;line-height:1.5;margin:6px 0 0}
+    .status{padding:11px;border:1px solid #e1e1e1;border-radius:3px;color:#4e4e4e;background:#fafafa;font-size:13px;line-height:1.5;margin-bottom:16px}
+    .status.error{border-color:#f4aaa1;background:#fff1ef;color:#ae2619}
+    .status.success{border-color:#b4d9c0;background:#f0fbf2;color:#23623a}
+    .account{text-align:center}
+    .account .avatar{width:66px;height:66px;display:grid;place-items:center;background:#e84534;color:#fff;border-radius:50%;font-weight:900;font-size:27px;margin:0 auto 17px}
+    .account h2{margin:0 0 8px;font-size:22px;overflow-wrap:anywhere}
+    .account p{font-size:13px;color:#666;margin-bottom:23px;overflow-wrap:anywhere}
+    .account a{display:block;background:#e84534;color:#fff;text-decoration:none;padding:13px;border-radius:4px;font-weight:bold;margin-bottom:10px}
+    .account button{width:100%}
+    @media(max-width:460px){.panel{padding:21px;box-shadow:none}main{display:block;padding:15px 9px}header{padding:10px 13px}}
+    @media(prefers-reduced-motion:no-preference){.panel{animation:enter .18s ease-out} @keyframes enter{from{opacity:.9;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}}
+  </style>
+</head>
+<body>
+<header>
+  <a class="brand" href="https://mandlalee.github.io/123Kasi/" aria-label="123Kasi home"><span>123</span>KASI</a>
+  <a class="back" href="https://mandlalee.github.io/123Kasi/">← Back to site</a>
+</header>
+<main><section class="panel" aria-label="123Kasi account">
+  <div id="account" class="account" hidden>
+    <div class="avatar" id="initial">K</div>
+    <h2 id="accountName"></h2>
+    <p id="accountEmail"></p>
+    <a href="https://mandlalee.github.io/123Kasi/">Browse 123Kasi</a>
+    <button class="secondary" id="signOut" type="button">Sign out</button>
+  </div>
+  <div id="auth">
+    <h1>Welcome to 123Kasi</h1>
+    <p class="subtitle">Sign in or create an account to manage your 123Kasi identity.</p>
+    <div class="tabs">
+      <button class="tab active" type="button" data-view="login" aria-selected="true">Sign in</button>
+      <button class="tab" type="button" data-view="register" aria-selected="false">Create account</button>
+    </div>
+    <div id="status" class="status" aria-live="polite" role="status" hidden></div>
+    <form id="login" data-form>
+      <label>Email <input type="email" name="email" autocomplete="email" required maxlength="254"></label>
+      <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+      <button class="primary" type="submit">Sign in</button>
+      <button class="text-button" type="button" data-view="forgot">Forgot password?</button>
+      <button class="text-button" type="button" data-view="verify">Have a verification code?</button>
+    </form>
+    <form id="register" data-form hidden>
+      <label>Display name <input type="text" name="name" autocomplete="name" required minlength="2" maxlength="50"></label>
+      <label>Email <input type="email" name="email" autocomplete="email" required maxlength="254"></label>
+      <label>Password <input type="password" name="password" autocomplete="new-password" required minlength="12"></label>
+      <p class="small">Use at least 12 characters. Passwords are stored as bcrypt hashes in the private account database, not readable text.</p>
+      <button class="primary" type="submit">Create account</button>
+    </form>
+    <form id="verify" data-form hidden>
+      <label>Email <input type="email" name="email" autocomplete="email" required></label>
+      <label>Six-digit code <input type="text" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" required></label>
+      <button class="primary" type="submit">Verify email</button>
+      <button class="text-button" type="button" id="resend">Resend verification code</button>
+      <button class="text-button" type="button" data-view="login">Return to sign in</button>
+    </form>
+    <form id="forgot" data-form hidden>
+      <label>Email <input type="email" name="email" autocomplete="email" required></label>
+      <button class="primary" type="submit">Email a reset code</button>
+      <button class="text-button" type="button" data-view="login">Return to sign in</button>
+    </form>
+    <form id="reset" data-form hidden>
+      <label>Email <input type="email" name="email" autocomplete="email" required></label>
+      <label>Six-digit code <input type="text" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" required></label>
+      <label>New password <input type="password" name="password" autocomplete="new-password" minlength="12" required></label>
+      <button class="primary" type="submit">Update password</button>
+      <button class="text-button" type="button" data-view="forgot">Request another code</button>
+    </form>
+  </div>
+</section></main>
+<script>
+(() => {
+  'use strict';
+  const key='123kasi_session';
+  const auth=document.querySelector('#auth');
+  const account=document.querySelector('#account');
+  const status=document.querySelector('#status');
+  const views=[...document.querySelectorAll('form[data-form]')];
+  let busy=false;
+
+  function storage() {
+    try{return window.sessionStorage;}catch(_){return null;}
+  }
+
+  function message(text,isError=false) {
+    status.textContent=text||'';
+    status.hidden=!text;
+    status.className='status'+(isError?' error':text?' success':'');
+  }
+
+  function currentEmail() {
+    for (const form of views) {
+      const input=form.querySelector('[name=email]');
+      if (input && !form.hidden && input.value.trim()) return input.value.trim();
+    }
+    return '';
+  }
+
+  function switchView(id,email='') {
+    auth.hidden=false;account.hidden=true;message('');
+    views.forEach(form=>{
+      form.hidden=form.id!==id;
+      if(email&&form.id===id) {
+        const el=form.querySelector('[name=email]');
+        if(el)el.value=email;
+      }
+    });
+    document.querySelectorAll('.tabs .tab').forEach(tab=>{
+      const active=tab.dataset.view===id;
+      tab.classList.toggle('active',active);
+      tab.setAttribute('aria-selected',String(active));
+    });
+    document.querySelector('.tabs').hidden=!['login','register'].includes(id);
+    views.find(form=>form.id===id)?.querySelector('input')?.focus();
+  }
+
+  function server(action,args,onSuccess) {
+    if(busy)return;
+    busy=true;
+    document.querySelectorAll('button').forEach(b=>b.disabled=true);
+    const done=()=>{
+      busy=false;
+      document.querySelectorAll('button').forEach(b=>b.disabled=false);
+    };
+    google.script.run
+      .withSuccessHandler(result=>{
+        done();
+        try{onSuccess(result);}catch(e){message('Could not complete the request.',true);}
+      })
+      .withFailureHandler(error=>{
+        done();
+        message(error?.message||'Could not complete the request. Please try again.',true);
+      })[action](...args);
+  }
+
+  function showAccount(user) {
+    auth.hidden=true;account.hidden=false;
+    document.querySelector('#accountName').textContent=user.displayName;
+    document.querySelector('#accountEmail').textContent=user.email;
+    document.querySelector('#initial').textContent=(user.displayName||'K').slice(0,1).toUpperCase();
+  }
+
+  function formData(form) {
+    return Object.fromEntries(new FormData(form));
+  }
+
+  document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
+    switchView(button.dataset.view,currentEmail());
+  }));
+
+  views.forEach(form=>form.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(busy||!form.reportValidity())return;
+    const data=formData(form);
+    if(form.id==='register'){
+      server('registerUser',[data],result=>{
+        form.querySelector('[name=password]').value='';
+        switchView('verify',data.email);
+        message(result.message);
+      });
+    }else if(form.id==='login'){
+      server('loginUser',[data],result=>{
+        form.querySelector('[name=password]').value='';
+        storage()?.setItem(key,result.token);
+        showAccount(result.user);
+      });
+    }else if(form.id==='verify'){
+      server('verifyEmail',[data.email,data.code],result=>{
+        switchView('login',data.email);
+        message(result.message);
+      });
+    }else if(form.id==='forgot'){
+      server('requestPasswordReset',[data.email],result=>{
+        switchView('reset',data.email);
+        message(result.message);
+      });
+    }else if(form.id==='reset'){
+      server('resetPassword',[data],result=>{
+        form.querySelector('[name=password]').value='';
+        switchView('login',data.email);
+        message(result.message);
+      });
+    }
+  }));
+
+  document.querySelector('#resend').addEventListener('click',()=>{
+    const input=document.querySelector('#verify [name=email]');
+    if(!input.reportValidity())return;
+    server('resendVerification',[input.value],r=>message(r.message));
+  });
+
+  document.querySelector('#signOut').addEventListener('click',()=>{
+    const token=storage()?.getItem(key);
+    storage()?.removeItem(key);
+    if(token)server('logoutUser',[token],()=>switchView('login'));
+    else switchView('login');
+  });
+
+  const token=storage()?.getItem(key);
+  if(token) {
+    server('getSessionUser',[token],user=>{
+      if(user)showAccount(user);
+      else {storage()?.removeItem(key);switchView('login');}
+    });
+  } else {
+    switchView('login');
+  }
+})();
+</script>
+</body>
+</html>
