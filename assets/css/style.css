@@ -24,3 +24,15 @@
 #mediaViewer img,#mediaViewer video{max-width:100%;max-height:85vh;object-fit:contain;display:block;margin:auto}
 .media-dialog .close-dialog{float:none;position:absolute;right:8px;top:8px;z-index:2;background:#fff;border-radius:50%;width:36px;height:36px}
 @media(max-width:650px){.album-hero{grid-template-columns:1fr;gap:12px}.album-details h1{font-size:23px}}
+
+/* Media viewer navigation and loading states */
+.viewer-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 4px 2px;color:#f1f1f1}
+.viewer-toolbar button{flex-shrink:0;padding:9px 14px;color:#fff;background:#323232;border:1px solid #555;border-radius:3px;font-size:13px;font-weight:bold;min-height:40px}
+.viewer-toolbar button:hover:not(:disabled){background:#e64530;border-color:#e64530}
+.viewer-toolbar button:disabled{opacity:.35;cursor:default}
+#viewerCaption{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-size:12px}
+.media-dialog .close-dialog{cursor:pointer}
+.thumb-broken{display:grid;place-items:center;background:#f0f0f0;color:#777}
+.thumb-broken::after{content:"Preview unavailable";font-size:12px;text-align:center}
+.thumb-broken img,.thumb-broken video{display:none}
+@media(max-width:480px){.viewer-toolbar{gap:7px}.viewer-toolbar button{padding:8px;font-size:12px}#viewerCaption{font-size:11px}}
