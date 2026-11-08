@@ -139,7 +139,7 @@ function renderReel() {
   const entry = reelsState.library[reelsState.order[reelsState.position]];
   const file = entry.file;
   const url = validMediaURL(file.url);
-  reelsCounter.textContent = (reelsState.position + 1) + ' / ' + reelsState.order.length + ' · Round ' + reelsState.round;
+  reelsCounter.textContent = (reelsState.position + 1) + ' / ' + reelsState.order.length;
   modelLink.textContent = entry.album.title || entry.album.slug;
   modelLink.href = 'album.html?album=' + encodeURIComponent(entry.album.slug);
   mediaKind.textContent = file.type === 'video' ? 'VIDEO' : 'PHOTO';
