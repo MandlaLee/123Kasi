@@ -3,6 +3,34 @@ const mediaGrid = document.querySelector('#mediaGrid');
 const mediaDialog = document.querySelector('#mediaDialog');
 const mediaViewer = document.querySelector('#mediaViewer');
 const closeMediaDialog = document.querySelector('#closeMediaDialog');
+const prevMedia = document.querySelector('#prevMedia');
+const nextMedia = document.querySelector('#nextMedia');
+const viewerCaption = document.querySelector('#viewerCaption');
+let currentAlbum = null;
+let currentIndex = -1;
+
+function showMedia(album, index, updateUrl = true) {
+  if (!album || !album.files || index < 0 || index >= album.files.length) return;
+  currentAlbum = album;
+  currentIndex = index;
+  const file = album.files[index];
+  mediaViewer.innerHTML = mediaElement(file, { controls: true });
+  const label = file.type === 'video' ? 'Video' : 'Photo';
+  if (viewerCaption) viewerCaption.textContent = album.title + ' · ' + label + ' ' + (index + 1) + ' of ' + album.files.length;
+  if (prevMedia) prevMedia.disabled = index === 0;
+  if (nextMedia) nextMedia.disabled = index === album.files.length - 1;
+  if (!mediaDialog.open) mediaDialog.showModal();
+  if (updateUrl) {
+    const url = new URL(location.href);
+    url.searchParams.set('media', String(index));
+    history.replaceState(null, '', url);
+  }
+}
+
+function navigateMedia(delta) {
+  if (currentAlbum) showMedia(currentAlbum, currentIndex + delta);
+}
+
 
 function text(value = '') {
   return String(value).replace(/[&<>'"]/g, character => ({
@@ -23,9 +51,9 @@ function mediaElement(file, options = {}) {
     const controls = options.controls ? 'controls' : '';
     const autoplay = options.autoplay ? 'autoplay' : '';
     const muted = options.controls ? '' : 'muted';
-    return `<video src="${file.url}" ${controls} ${autoplay} ${muted} playsinline preload="metadata" aria-label="${label}"></video>`;
+    return `<video src="${text(file.url)}" ${controls} ${autoplay} ${muted} playsinline preload="metadata" aria-label="${label}"></video>`;
   }
-  return `<img src="${file.url}" alt="${label}" loading="lazy">`;
+  return `<img src="${text(file.url)}" alt="${label}" loading="lazy">`;
 }
 
 function renderAlbum(album) {
@@ -41,7 +69,7 @@ function renderAlbum(album) {
         </div>
         <h1>${text(album.title)}</h1>
         <p>${text(album.description || 'Every photo and video on this page comes from the matching folder inside the feed directory.')}</p>
-        <a class="open-album" href="index.html">Back to latest</a>
+        <a class="open-album" href="index.html">← Back to feed</a>
       </div>
     </div>
   `;
@@ -56,16 +84,12 @@ function renderAlbum(album) {
 
   mediaGrid.querySelectorAll('.media-tile').forEach(tile => {
     tile.addEventListener('click', () => {
-      const file = album.files[Number(tile.dataset.index)];
-      mediaViewer.innerHTML = mediaElement(file, { controls: true, autoplay: file.type === 'video' });
-      mediaDialog.showModal();
+      showMedia(album, Number(tile.dataset.index));
     });
   });
   const selected = Number(new URLSearchParams(location.search).get('media'));
   if (new URLSearchParams(location.search).has('media') && Number.isInteger(selected) && selected >= 0 && selected < album.files.length) {
-    const file = album.files[selected];
-    mediaViewer.innerHTML = mediaElement(file, { controls: true, autoplay: false });
-    mediaDialog.showModal();
+    showMedia(album, selected, false);
   }
 }
 
@@ -103,19 +127,29 @@ async function loadAlbum() {
   }
 }
 
-if (closeMediaDialog) {
-  closeMediaDialog.addEventListener('click', () => {
-    mediaDialog.close();
-    mediaViewer.innerHTML = '';
-  });
-}
+if (closeMediaDialog) closeMediaDialog.addEventListener('click', () => mediaDialog.close());
+if (prevMedia) prevMedia.addEventListener('click', () => navigateMedia(-1));
+if (nextMedia) nextMedia.addEventListener('click', () => navigateMedia(1));
+
 
 if (mediaDialog) {
   mediaDialog.addEventListener('click', event => {
     if (event.target === mediaDialog) mediaDialog.close();
   });
+  mediaDialog.addEventListener('keydown', event => {
+    if (event.target.tagName === 'VIDEO') return;
+    if (event.key === 'ArrowLeft') { event.preventDefault(); navigateMedia(-1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); navigateMedia(1); }
+  });
   mediaDialog.addEventListener('close', () => {
     mediaViewer.innerHTML = '';
+    currentAlbum = null;
+    currentIndex = -1;
+    const url = new URL(location.href);
+    if (url.searchParams.has('media')) {
+      url.searchParams.delete('media');
+      history.replaceState(null, '', url);
+    }
   });
 }
 
