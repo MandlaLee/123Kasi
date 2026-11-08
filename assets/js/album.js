@@ -35,7 +35,7 @@ function renderAlbum(album) {
       <div class="album-cover">${cover ? mediaElement(cover) : ''}</div>
       <div class="album-details">
         <div class="meta-row">
-          <span class="meta-chip hot">Album</span>
+          <span class="meta-chip hot">Model</span>
           <span class="meta-chip">${album.totalCount} items</span>
           <span class="meta-chip">${formatDate(album.updatedAt)}</span>
         </div>
