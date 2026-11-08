@@ -41,3 +41,32 @@ button:focus-visible,a:focus-visible,.reels-player:focus-visible{outline:2px sol
 @media(max-width:840px){.reels-help{display:none}}
 @media(max-width:520px){.reels-header{height:50px;padding:0 13px}.reels-logo{font-size:23px}.reels-header .back span{display:none}.reels-layout{height:calc(100dvh - 50px);min-height:0;padding:0}.reels-player{width:100%;max-width:none;height:100%;aspect-ratio:auto;border:0;border-radius:0}.reels-counter{top:13px}.reels-bottom{padding-bottom:max(17px,env(safe-area-inset-bottom))}.reels-controls{right:12px;bottom:90px}.reels-controls button{height:43px;width:43px}.reels-caption{max-width:calc(100% - 54px)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+
+/* Reels: quick, understated transitions when content changes. */
+.reels-stage > img,
+.reels-stage > video { animation:reel-enter 190ms cubic-bezier(.2,.7,.25,1) both; }
+.reels-controls button,
+.reels-header .back,
+.reels-help>a,
+.model-link {
+  transition:transform 150ms ease, background-color 150ms ease,
+             border-color 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+@media(hover:hover) and (pointer:fine) {
+  .reels-controls button:hover:not(:disabled) { transform:scale(1.055); }
+  .reels-header .back:hover,.reels-help>a:hover { color:#e84534; }
+}
+.reels-controls button:active:not(:disabled) { transform:scale(.94); }
+.reels-message:not([hidden]) { animation:message-appear 160ms ease-out both; }
+@keyframes reel-enter {
+  from { opacity:.78; transform:translateY(5px) scale(.995); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes message-appear {
+  from { opacity:0; transform:translate(-50%,-48%); }
+  to { opacity:1; transform:translate(-50%,-50%); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .reels-stage > img,.reels-stage > video,.reels-message:not([hidden]) { animation:none!important; transform:none!important; opacity:1!important; }
+  .reels-controls button,.reels-header .back,.reels-help>a,.model-link { transition:none!important; }
+}
