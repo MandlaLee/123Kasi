@@ -1,75 +1,136 @@
-/* Keep the 123Kasi page in place while opening Google-hosted account forms
-   in a compact browser popup. No credentials are collected by GitHub Pages.
-   Apps Script currently rejects cross-origin iframe embedding. */
+/* 123Kasi in-page account modal.
+ * The browser displays Apps Script's own account UI in an iframe.
+ * Passwords NEVER pass through the GitHub Pages host.
+ * The Apps Script deployment must support ?embed=1 and the verified
+ * postMessage handshake before the form can be displayed.
+ */
 (() => {
   'use strict';
 
-  const links = [...document.querySelectorAll('.account-link, .reels-signin')];
-  if (!links.length) return;
-
+  const accountLinks = [...document.querySelectorAll('.account-link, .reels-signin')];
+  if (!accountLinks.length) return;
+  const authUrl = accountLinks[0].href;
+  const hostOrigin = location.origin;
   const dialog = document.createElement('dialog');
-  dialog.className = 'account-popup-fallback';
-  dialog.setAttribute('aria-labelledby', 'accountPopupTitle');
-  dialog.innerHTML = [
-    '<div class="account-popup-content">',
-    '  <button class="account-popup-close" type="button" aria-label="Close">×</button>',
-    '  <h2 id="accountPopupTitle">Sign in to 123Kasi</h2>',
-    '  <p>Your browser blocked the secure sign-in popup. Allow popups for 123Kasi, or open the account page in a separate tab.</p>',
-    '  <a class="account-popup-continue" target="_blank" rel="noopener noreferrer">Open secure sign in / sign up</a>',
-    '</div>'
-  ].join('');
+  dialog.className = 'account-modal';
+  dialog.setAttribute('aria-label', '123Kasi sign in or create account');
+  dialog.innerHTML = `
+    <div class="account-modal-shell">
+      <header class="account-modal-header">
+        <div class="account-modal-brand"><span>123</span>KASI <small>Account</small></div>
+        <button class="account-modal-close" type="button" aria-label="Close account form">×</button>
+      </header>
+      <div class="account-modal-body">
+        <div class="account-modal-status" role="status" aria-live="polite">
+          <div class="account-modal-spinner" aria-hidden="true"></div>
+          <strong>Loading secure account form…</strong>
+          <p>The form is securely hosted by Google Apps Script.</p>
+        </div>
+        <iframe class="account-modal-iframe" title="123Kasi secure sign in and registration"
+          referrerpolicy="origin" allow="clipboard-write" hidden></iframe>
+      </div>
+      <footer class="account-modal-footer">
+        <span>Google Apps Script</span>
+        <a class="account-modal-external" target="_blank" rel="noopener noreferrer">Open full-page login</a>
+      </footer>
+    </div>`;
   document.body.append(dialog);
 
-  const closeButton = dialog.querySelector('.account-popup-close');
-  const alternate = dialog.querySelector('.account-popup-continue');
-  closeButton.addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => {
-    if (event.target === dialog) dialog.close();
-  });
+  const iframe = dialog.querySelector('.account-modal-iframe');
+  const status = dialog.querySelector('.account-modal-status');
+  const title = status.querySelector('strong');
+  const message = status.querySelector('p');
+  const spinner = status.querySelector('.account-modal-spinner');
+  const closeButton = dialog.querySelector('.account-modal-close');
+  const fullLink = dialog.querySelector('.account-modal-external');
+  fullLink.href = authUrl;
 
-  function openAccount(url) {
-    // Blank first so we can explicitly remove the opener before navigating
-    // to the authentication page. This avoids giving the cross-origin page
-    // access to the original browsing context.
-    const width = Math.min(470, screen.availWidth || 470);
-    const height = Math.min(800, screen.availHeight || 800);
-    const left = Math.max(0, Math.round((screen.availWidth - width) / 2));
-    const top = Math.max(0, Math.round((screen.availHeight - height) / 2));
-    const features = `popup=yes,width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`;
+  let nonce = '';
+  let timeoutId = null;
 
-    let popup;
+  const googleOrigin = origin => {
     try {
-      popup = window.open('about:blank', '123KasiAccount', features);
+      const parsed = new URL(origin);
+      return parsed.protocol === 'https:' && (
+        parsed.hostname === 'script.google.com' ||
+        parsed.hostname.endsWith('.googleusercontent.com')
+      );
     } catch (_) {
-      popup = null;
+      return false;
     }
+  };
 
-    if (!popup) {
-      alternate.href = url;
-      if (!dialog.open) dialog.showModal();
-      return;
-    }
-
-    try {
-      popup.opener = null;
-      popup.location.replace(url);
-      popup.focus();
-    } catch (_) {
-      // Some browsers restrict named windows. In that case, let the user
-      // choose the secure link rather than unexpectedly redirecting the site.
-      try { popup.close(); } catch (_) {}
-      alternate.href = url;
-      if (!dialog.open) dialog.showModal();
-    }
+  function resetFrame() {
+    if (timeoutId !== null) clearTimeout(timeoutId);
+    timeoutId = null;
+    nonce = '';
+    iframe.hidden = true;
+    iframe.removeAttribute('src');
+    status.hidden = false;
+    spinner.hidden = false;
+    title.textContent = 'Loading secure account form…';
+    message.textContent = 'The form is securely hosted by Google Apps Script.';
   }
 
-  links.forEach(link => {
+  function openInline() {
+    resetFrame();
+    // Every embed uses a fresh challenge, so an unrelated third-party iframe
+    // cannot mark itself trusted by the host or request form visibility.
+    const random = new Uint8Array(16);
+    crypto.getRandomValues(random);
+    nonce = Array.from(random, b => b.toString(16).padStart(2, '0')).join('');
+    const url = new URL(authUrl);
+    url.searchParams.set('embed', '1');
+    url.searchParams.set('nonce', nonce);
+    dialog.showModal();
+    iframe.src = url.href;
+    closeButton.focus();
+
+    timeoutId = setTimeout(() => {
+      if (!dialog.open || !nonce || !iframe.hidden) return;
+      spinner.hidden = true;
+      title.textContent = 'The embedded form has not loaded';
+      message.textContent = 'The Apps Script deployment may still need updating, or your browser may be blocking embedded Google pages. You can use the full-page login link below.';
+    }, 11000);
+  }
+
+  window.addEventListener('message', event => {
+    if (!dialog.open || !nonce || !googleOrigin(event.origin)) return;
+    const data = event.data;
+    if (!data || data.source !== '123kasi-auth' || data.nonce !== nonce) return;
+
+    if (data.kind === 'ready') {
+      // Reply only to the verified Google-hosted frame, never to random sites.
+      event.source?.postMessage({
+        source: '123kasi-auth-host', kind: 'ack', nonce
+      }, event.origin);
+    } else if (data.kind === 'accepted') {
+      if (timeoutId !== null) clearTimeout(timeoutId);
+      timeoutId = null;
+      iframe.hidden = false;
+      status.hidden = true;
+    }
+  });
+
+  function closeDialog() {
+    if (dialog.open) dialog.close();
+  }
+
+  closeButton.addEventListener('click', closeDialog);
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) closeDialog();
+  });
+  dialog.addEventListener('close', resetFrame);
+
+  accountLinks.forEach(link => {
     link.setAttribute('aria-haspopup', 'dialog');
-    link.title = 'Sign in or create an account (opens a secure popup)';
+    link.setAttribute('aria-label', 'Open 123Kasi sign in and sign up');
+    link.title = 'Sign in or create an account without leaving 123Kasi';
     link.addEventListener('click', event => {
-      if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      if (event.defaultPrevented || event.button !== 0 ||
+          event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
-      openAccount(link.href);
+      openInline();
     });
   });
 })();
